@@ -1,0 +1,48 @@
+.Menu {
+  display: inline-block;
+  width: 100%;
+}
+.menuStyle {
+  width: 100%;
+  background-color: transparent;
+  list-style-type: none;
+  text-align: center;
+  overflow: hidden;
+  align-items: center;
+}
+.listItems {
+  width: 33%;
+  float: left;
+  background-color: transparent;
+}
+.menuButton {
+  color: white;
+  background-color: transparent;
+  padding: 0 30% 1% 30%;
+  border: none;
+  border-right-color: white;
+  color: "#DAD8D8";
+}
+.menuButton:hover {
+  color: #1b9692;
+}
+.title {
+  color: #e07900;
+  text-align: center;
+  padding: 5% 0 0 0;
+  font-size: 600%;
+}
+.main {
+  background-image: linear-gradient(#6b66af, #c9775d);
+  height: 100%;
+  width: 100%;
+  font-family: "Skia Light";
+}
+hr {
+  width: 25%;
+  /* text-align: center; */
+  /* display: block; */
+  height: 1px;
+  border-top: 1px solid #ccc;
+  padding: 0 25% 0 25%;
+}
