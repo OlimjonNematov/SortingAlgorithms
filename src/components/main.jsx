@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Title from "./title";
 import "./index.css";
-import About from "./about";
-import SortingAlgos from "./sortingAlgorithms";
-import OtherProjects from "./otherProjects";
+import About from "./AboutMe/about";
+import SortingAlgos from "./SortingAlgorithms/sortingAlgorithms";
+import OtherProjects from "./OtherProjects/otherProjects";
 
 class Main extends Component {
   state = {
