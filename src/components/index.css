@@ -1,6 +1,7 @@
 .Menu {
   display: inline-block;
   width: 100%;
+  position: relative;
 }
 .menuStyle {
   width: 100%;
@@ -8,41 +9,82 @@
   list-style-type: none;
   text-align: center;
   overflow: hidden;
-  align-items: center;
+  align-content: center;
+  margin: auto;
 }
 .listItems {
-  width: 33%;
+  width: 32%;
   float: left;
+  align-items: center;
   background-color: transparent;
 }
 .menuButton {
   color: white;
-  background-color: transparent;
-  padding: 0 30% 1% 30%;
+  background-image: linear-gradient(to right, #6b66af, #c9775d);
+  padding: 2% 30% 2% 30%;
   border: none;
-  border-right-color: white;
   color: "#DAD8D8";
 }
 .menuButton:hover {
-  color: #1b9692;
+  color: #30475e;
 }
 .title {
-  color: #e07900;
+  color: white;
   text-align: center;
   padding: 5% 0 0 0;
   font-size: 600%;
 }
 .main {
-  background-image: linear-gradient(#6b66af, #c9775d);
+  /* background-image: linear-gradient(#6b66af, #c9775d); */
+  background-color: transparent;
   height: 100%;
   width: 100%;
   font-family: "Skia Light";
 }
-hr {
+.titleHr {
   width: 25%;
-  /* text-align: center; */
-  /* display: block; */
   height: 1px;
   border-top: 1px solid #ccc;
   padding: 0 25% 0 25%;
+}
+.mainContent {
+  /* background-image: linear-gradient(#6b66af, #c9775d); */
+  background-color: transparent;
+  width: 80%;
+  padding: 5%;
+  margin: 0 auto;
+  color: white;
+}
+h2 {
+  padding: 0%;
+  margin: auto;
+}
+.headlineHr {
+  margin: 0;
+  float: left;
+  width: 20%;
+  height: 1px;
+  border-top: 1px solid #ccc;
+}
+.aboutContent {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+p {
+  line-height: 1.9em;
+}
+.skills {
+  float: left;
+  align-items: center;
+  margin: 0;
+  position: relative;
+}
+#middleSkills {
+  padding: 0 19.7% 0 19.7%;
+}
+.aboutSkillsContainer {
+  padding-top: 5%;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
 }
