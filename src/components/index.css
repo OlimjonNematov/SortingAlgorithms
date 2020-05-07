@@ -116,6 +116,9 @@ p {
 .algoListButtons:hover {
   border-bottom: 1px solid #fcaf45;
 }
+.algoListButtons:disabled {
+  color: gray;
+}
 /* --------------------------sorting algorithms content ------------------------- */
 .sortingMain {
   width: 100%;

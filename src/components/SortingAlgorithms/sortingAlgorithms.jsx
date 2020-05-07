@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./bubble.js";
 import { bubbleSort } from "./bubble.js";
+const ANIMATION_SPEED = 0.05;
 class SortingAlgos extends Component {
   constructor(props) {
     super(props);
@@ -12,7 +13,7 @@ class SortingAlgos extends Component {
       showInsertion: false,
       showMerge: false,
       showHeap: false,
-      stopCurrent: false,
+      disableButtons: false,
     };
   }
   componentDidMount() {
@@ -27,27 +28,17 @@ class SortingAlgos extends Component {
     }
     this.setState({ arr: tempArr });
   }
-
+  enableButtons() {
+    this.setState({});
+  }
   bubble() {
     const [animationArray, sortedArray] = bubbleSort(this.state.arr);
+    this.setState({ arr: sortedArray });
     console.log(animationArray.length);
     for (let i = 0; i < animationArray.length; i++) {
-      if (this.state.stopCurrent || this.state.showBubble) {
-        break;
-      }
       const bars = document.getElementsByClassName("bar");
       const swapped = i % 4 === 1 || i % 4 === 0;
-      if (swapped) {
-        const color = i % 4 === 0 ? "red" : "white";
-        const [firstBar, secondBar] = animationArray[i];
-        const firstBarStyle = bars[firstBar].style;
-        const secondBarStyle = bars[secondBar].style;
-
-        setTimeout(() => {
-          firstBarStyle.backgroundColor = color;
-          secondBarStyle.backgroundColor = color;
-        }, i * 0.05);
-      } else {
+      if (!swapped) {
         const [barIndex, newHeight] = animationArray[i];
         if (barIndex === -1) {
           continue;
@@ -55,10 +46,13 @@ class SortingAlgos extends Component {
         const barStyle = bars[barIndex].style;
         setTimeout(() => {
           barStyle.height = `${newHeight}px`;
-        }, i * 0.05);
+        }, i * ANIMATION_SPEED);
       }
     }
-    console.log("done");
+    setTimeout(() => {
+      this.setState({ disableButtons: false });
+    }, ANIMATION_SPEED * animationArray.length);
+    console.log("hi");
   }
 
   render() {
@@ -68,6 +62,7 @@ class SortingAlgos extends Component {
         <ul className="algoList">
           <li className="algoListItem">
             <button
+              disabled={this.state.disableButtons}
               onClick={() => {
                 this.bubble(arr);
                 this.setState({
@@ -76,6 +71,7 @@ class SortingAlgos extends Component {
                   showInsertion: false,
                   showMerge: false,
                   showHeap: false,
+                  disableButtons: true,
                 });
               }}
               className="algoListButtons"
@@ -85,6 +81,7 @@ class SortingAlgos extends Component {
           </li>
           <li className="algoListItem">
             <button
+              disabled={this.state.disableButtons}
               onClick={() => {
                 this.setState({
                   showBubble: false,
@@ -92,6 +89,7 @@ class SortingAlgos extends Component {
                   showInsertion: false,
                   showMerge: false,
                   showHeap: false,
+                  disableButtons: true,
                 });
               }}
               className="algoListButtons"
@@ -101,6 +99,7 @@ class SortingAlgos extends Component {
           </li>
           <li className="algoListItem">
             <button
+              disabled={this.state.disableButtons}
               onClick={() => {
                 this.setState({
                   showBubble: false,
@@ -108,6 +107,7 @@ class SortingAlgos extends Component {
                   showInsertion: false,
                   showMerge: false,
                   showHeap: true,
+                  disableButtons: true,
                 });
               }}
               className="algoListButtons"
@@ -117,6 +117,7 @@ class SortingAlgos extends Component {
           </li>
           <li className="algoListItem">
             <button
+              disabled={this.state.disableButtons}
               onClick={() => {
                 this.setState({
                   showBubble: false,
@@ -124,6 +125,7 @@ class SortingAlgos extends Component {
                   showInsertion: false,
                   showMerge: true,
                   showHeap: false,
+                  disableButtons: true,
                 });
               }}
               className="algoListButtons"
@@ -133,6 +135,7 @@ class SortingAlgos extends Component {
           </li>
           <li className="algoListItem">
             <button
+              disabled={this.state.disableButtons}
               onClick={() => {
                 this.setState({
                   showBubble: false,
@@ -140,6 +143,7 @@ class SortingAlgos extends Component {
                   showInsertion: true,
                   showMerge: false,
                   showHeap: false,
+                  disableButtons: true,
                 });
               }}
               className="algoListButtons"
@@ -154,21 +158,11 @@ class SortingAlgos extends Component {
           ))}
         </div>
         <button
+          disabled={this.state.disableButtons}
           className="algoListButtons"
           onClick={() => this.generateArray()}
         >
           Generate new Array
-        </button>
-        <button
-          className="algoListButtons"
-          onClick={() => {
-            console.log("stoped, " + this.state.stopCurrent);
-            this.setState({
-              stopCurrent: true,
-            });
-          }}
-        >
-          Stop
         </button>
       </div>
     );
