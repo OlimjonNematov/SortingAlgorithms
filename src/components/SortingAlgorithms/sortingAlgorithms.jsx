@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./bubble.js";
 import { bubbleSort } from "./bubble.js";
+import { quickSort } from "./quick";
+import { animations } from "./quick";
 const ANIMATION_SPEED = 0.05;
 class SortingAlgos extends Component {
   constructor(props) {
@@ -31,10 +33,11 @@ class SortingAlgos extends Component {
   enableButtons() {
     this.setState({});
   }
+
+  //------------------------------------bubble sort animation------------------------------------
   bubble() {
     const [animationArray, sortedArray] = bubbleSort(this.state.arr);
     this.setState({ arr: sortedArray });
-    console.log(animationArray.length);
     for (let i = 0; i < animationArray.length; i++) {
       const bars = document.getElementsByClassName("bar");
       const swapped = i % 4 === 1 || i % 4 === 0;
@@ -52,9 +55,28 @@ class SortingAlgos extends Component {
     setTimeout(() => {
       this.setState({ disableButtons: false });
     }, ANIMATION_SPEED * animationArray.length);
-    console.log("hi");
   }
 
+  //------------------------------------quick sort animation------------------------------------
+  quick() {
+    console.log(this.state.arr.length);
+    const sortedArray = quickSort(this.state.arr, 0, 0);
+    const animationArray = animations;
+    console.log(sortedArray);
+    for (let i = 0; i < animationArray.length; i++) {
+      const bars = document.getElementsByClassName("bar");
+      const [barIndex, newHeight] = animationArray[i];
+      const barStyle = bars[barIndex].style;
+      setTimeout(() => {
+        barStyle.height = `${newHeight}px`;
+      }, i * ANIMATION_SPEED * 100);
+    }
+    setTimeout(() => {
+      this.setState({ disableButtons: false });
+    }, ANIMATION_SPEED * animationArray.length * 10);
+  }
+
+  //------------------------------------render ------------------------------------
   render() {
     const { arr } = this.state;
     return (
@@ -64,13 +86,8 @@ class SortingAlgos extends Component {
             <button
               disabled={this.state.disableButtons}
               onClick={() => {
-                this.bubble(arr);
+                this.bubble();
                 this.setState({
-                  showBubble: true,
-                  showQuick: false,
-                  showInsertion: false,
-                  showMerge: false,
-                  showHeap: false,
                   disableButtons: true,
                 });
               }}
@@ -83,12 +100,8 @@ class SortingAlgos extends Component {
             <button
               disabled={this.state.disableButtons}
               onClick={() => {
+                this.quick();
                 this.setState({
-                  showBubble: false,
-                  showQuick: true,
-                  showInsertion: false,
-                  showMerge: false,
-                  showHeap: false,
                   disableButtons: true,
                 });
               }}
