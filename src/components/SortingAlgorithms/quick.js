@@ -1,42 +1,46 @@
-export var animations = [];
+export var quickAnimations = [];
 
-export function quickSort(arr) {
-  let a = arr.slice();
-  if (a.length <= 1) {
-    // animations.push(a);
-    return a;
-  } else {
-    let leftArray = [];
-    let rightArray = [];
-    let newArray = [];
-    let pivot = a.pop();
-    let arrayLength = a.length;
-    //issue: i and j reset everytime the recursion is executed
-    let i = 0;
-    let j = 0;
-    for (let k = 0; k < arrayLength; k++) {
-      if (a[k] <= pivot) {
-        animations.push([i, a[k]]);
-        leftArray.push(a[k]);
-        i++;
-      } else {
-        animations.push([a.length - j, a[k]]);
-        rightArray.push(a[k]);
-        j++;
-      }
+export function quickSort(currentArray, left, right) {
+  var currentIndex;
+  if (currentArray.length > 1) {
+    currentIndex = partition(currentArray, left, right);
+    if (left < currentIndex - 1) {
+      quickSort(currentArray, left, currentIndex - 1);
     }
-    /*
-    console.log(
-      "left: " +
-        leftArray +
-        "\n" +
-        "pivot: " +
-        pivot +
-        "\n" +
-        "right:" +
-        rightArray
-    );
-    //*/
-    return newArray.concat(quickSort(leftArray), pivot, quickSort(rightArray));
+    if (currentIndex < right) {
+      quickSort(currentArray, currentIndex, right);
+    }
   }
+  return currentArray;
+}
+
+function partition(array, left, right) {
+  var pivot = array[Math.floor((left + right) / 2)];
+  var i = left;
+  var j = right;
+  while (i <= j) {
+    while (array[i] < pivot) {
+      i++;
+    }
+    while (array[j] > pivot) {
+      j--;
+    }
+    if (i <= j) {
+      quickAnimations.push([i, array[j]]);
+      quickAnimations.push([j, array[i]]);
+      swap(array, i, j);
+      i++;
+      j--;
+    }
+  }
+  return i;
+}
+function swap(array, leftIndex, rightIndex) {
+  var temp = array[leftIndex];
+  array[leftIndex] = array[rightIndex];
+  array[rightIndex] = temp;
+}
+
+export function clearQuickAnimationsArray() {
+  quickAnimations.length = 0;
 }
