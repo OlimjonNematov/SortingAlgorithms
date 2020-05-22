@@ -111,8 +111,16 @@ class SortingAlgos extends Component {
     console.log(copyOfArr);
 
     const animationsArray = mergeAnimations;
-    mergeSort(copyOfArr, copyOfArr.length, copyOfArr);
-    console.log(animationsArray.length);
+    /*
+    mergeSort(copyOfArr);
+    //*/
+    //*
+    mergeSort([1, 5, 2, 6, 3, 7]);
+    // for (let k = 0; k < animationsArray.length; k++) {
+    //   console.log(animationsArray[k]);
+    // }
+    //*/
+    // console.log(animationsArray.length);
     console.log(animationsArray);
     for (let i = 0; i < animationsArray.length; i++) {
       const bars = document.getElementsByClassName("bar");
