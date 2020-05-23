@@ -8,6 +8,12 @@ import {
   clearSelectionAnimationsArray,
   selectionAnimations,
 } from "./selection";
+import {
+  insertionSort,
+  clearInsertionAnimations,
+  insertionAnimations,
+} from "./insertion";
+
 const ANIMATION_SPEED = 5;
 class SortingAlgos extends Component {
   constructor(props) {
@@ -68,11 +74,10 @@ class SortingAlgos extends Component {
     }
     return true;
   }
-  //------------------------------------bubble sort animation------------------------------------
+  //------------------------------------sorting animations------------------------------------
   bubble() {
     let copyOfArr = this.state.arr;
-    const animationArray = bubbleSort(copyOfArr);
-    console.log();
+    const [animationArray, sortedArray] = bubbleSort(copyOfArr);
     for (let i = 0; i < animationArray.length; i++) {
       const bars = document.getElementsByClassName("bar");
       const [barIndex, newHeight] = animationArray[i];
@@ -82,14 +87,12 @@ class SortingAlgos extends Component {
       }, (i * ANIMATION_SPEED) / 100);
     }
     setTimeout(() => {
-      this.setState({ disableButtons: false });
+      this.setState({ arr: sortedArray, disableButtons: false });
     }, (ANIMATION_SPEED * animationArray.length) / 100);
   }
-
-  //------------------------------------quick sort animation------------------------------------
   quick() {
     const copyOfArr = this.state.arr.slice();
-    quickSort(copyOfArr, 0, copyOfArr.length - 1);
+    let sortedArray = quickSort(copyOfArr, 0, copyOfArr.length - 1);
     const animationArray = quickAnimations;
     for (let i = 0; i < animationArray.length; i++) {
       const bars = document.getElementsByClassName("bar");
@@ -101,15 +104,13 @@ class SortingAlgos extends Component {
     }
     setTimeout(() => {
       clearQuickAnimationsArray();
-      this.setState({ disableButtons: false });
+      this.setState({ arr: sortedArray, disableButtons: false });
     }, ANIMATION_SPEED * animationArray.length);
   }
-
-  //------------------------------------merge sort animation------------------------------------
   merge() {
     let copyOfArr = this.state.arr.slice();
     const animationsArray = mergeAnimations;
-    mergeSort(copyOfArr);
+    let sortedArray = mergeSort(copyOfArr);
 
     for (let i = 0; i < animationsArray.length; i++) {
       const bars = document.getElementsByClassName("bar");
@@ -122,16 +123,14 @@ class SortingAlgos extends Component {
 
     setTimeout(() => {
       clearMergeAnimationsArray();
-      this.setState({ disableButtons: false });
+      this.setState({ arr: sortedArray, disableButtons: false });
     }, ANIMATION_SPEED * animationsArray.length);
   }
   selection() {
-    console.log("sorted:" + selectionSort(this.state.arr));
+    const copyOfArr = this.state.arr.slice();
+    // const copyOfArr = [1, 9, 2, 3, 8, 4, 7];
+    let sortedArray = selectionSort(copyOfArr);
     const animations = selectionAnimations;
-    console.log(selectionAnimations);
-    for (let i = 0; i < animations.length; i++) {
-      console.log(animations[i]);
-    }
     for (let i = 0; i < animations.length; i++) {
       const bars = document.getElementsByClassName("bar");
       const [barIndex, newHeight] = animations[i];
@@ -142,9 +141,18 @@ class SortingAlgos extends Component {
     }
     setTimeout(() => {
       clearSelectionAnimationsArray();
-      this.setState({ disableButtons: false });
+      this.setState({
+        arr: sortedArray,
+        disableButtons: false,
+      });
     }, (animations.length * ANIMATION_SPEED) / 100);
   }
+  insertion() {
+    let copyOfArr = this.state.arr.slice();
+    // console.log(copyOfArr);
+    let sortedArray = insertionSort(copyOfArr);
+  }
+
   //------------------------------------render ------------------------------------
   render() {
     const { arr } = this.state;
@@ -214,13 +222,14 @@ class SortingAlgos extends Component {
               }}
               className="algoListButtons"
             >
-              Mergesort
+              Mergesort (x5)
             </button>
           </li>
           <li className="algoListItem">
             <button
               disabled={this.state.disableButtons}
               onClick={() => {
+                this.insertion();
                 this.setState({
                   showBubble: false,
                   showQuick: false,

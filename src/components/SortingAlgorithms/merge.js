@@ -20,7 +20,6 @@ function beginMergeSort(originalArray, length, start) {
       let tempVal = originalArray[i];
       arrayTwo.push(tempVal);
     }
-    console.log(start);
 
     //recurse
     arrayOne = beginMergeSort(arrayOne, length, start);
@@ -34,8 +33,6 @@ function beginMergeSort(originalArray, length, start) {
 }
 //merge the two arrays
 function merge(arrayOne, arrayTwo, start) {
-  console.log(arrayOne);
-  console.log(arrayTwo);
   let mergedArray = [];
   let i = 0;
   while (arrayOne.length !== 0 && arrayTwo.length !== 0) {
