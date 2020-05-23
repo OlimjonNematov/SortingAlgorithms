@@ -3,7 +3,12 @@ import "./bubble.js";
 import { bubbleSort } from "./bubble.js";
 import { quickSort, clearQuickAnimationsArray, quickAnimations } from "./quick";
 import { mergeSort, clearMergeAnimationsArray, mergeAnimations } from "./merge";
-const ANIMATION_SPEED = 0.05;
+import {
+  selectionSort,
+  clearSelectionAnimationsArray,
+  selectionAnimations,
+} from "./selection";
+const ANIMATION_SPEED = 5;
 class SortingAlgos extends Component {
   constructor(props) {
     super(props);
@@ -65,25 +70,20 @@ class SortingAlgos extends Component {
   }
   //------------------------------------bubble sort animation------------------------------------
   bubble() {
-    const [animationArray, sortedArray] = bubbleSort(this.state.arr);
-    this.setState({ arr: sortedArray });
+    let copyOfArr = this.state.arr;
+    const animationArray = bubbleSort(copyOfArr);
+    console.log();
     for (let i = 0; i < animationArray.length; i++) {
       const bars = document.getElementsByClassName("bar");
-      const swapped = i % 4 === 1 || i % 4 === 0;
-      if (!swapped) {
-        const [barIndex, newHeight] = animationArray[i];
-        if (barIndex === -1) {
-          continue;
-        }
-        const barStyle = bars[barIndex].style;
-        setTimeout(() => {
-          barStyle.height = `${newHeight}px`;
-        }, i * ANIMATION_SPEED);
-      }
+      const [barIndex, newHeight] = animationArray[i];
+      const barStyle = bars[barIndex].style;
+      setTimeout(() => {
+        barStyle.height = `${newHeight}px`;
+      }, (i * ANIMATION_SPEED) / 100);
     }
     setTimeout(() => {
       this.setState({ disableButtons: false });
-    }, ANIMATION_SPEED * animationArray.length);
+    }, (ANIMATION_SPEED * animationArray.length) / 100);
   }
 
   //------------------------------------quick sort animation------------------------------------
@@ -97,46 +97,54 @@ class SortingAlgos extends Component {
       const barStyle = bars[barIndex].style;
       setTimeout(() => {
         barStyle.height = `${newHeight}px`;
-      }, i * ANIMATION_SPEED * 100);
+      }, i * ANIMATION_SPEED);
     }
     setTimeout(() => {
       clearQuickAnimationsArray();
       this.setState({ disableButtons: false });
-    }, ANIMATION_SPEED * animationArray.length * 100);
+    }, ANIMATION_SPEED * animationArray.length);
   }
 
   //------------------------------------merge sort animation------------------------------------
   merge() {
     let copyOfArr = this.state.arr.slice();
-    console.log(copyOfArr);
-
     const animationsArray = mergeAnimations;
-    /*
     mergeSort(copyOfArr);
-    //*/
-    //*
-    mergeSort([1, 5, 2, 6, 3, 7]);
-    // for (let k = 0; k < animationsArray.length; k++) {
-    //   console.log(animationsArray[k]);
-    // }
-    //*/
-    // console.log(animationsArray.length);
-    console.log(animationsArray);
+
     for (let i = 0; i < animationsArray.length; i++) {
       const bars = document.getElementsByClassName("bar");
       const [barIndex, newHeight] = animationsArray[i];
       const barStyle = bars[barIndex].style;
       setTimeout(() => {
         barStyle.height = `${newHeight}px`;
-      }, i * ANIMATION_SPEED * 100);
+      }, i * ANIMATION_SPEED);
     }
 
     setTimeout(() => {
       clearMergeAnimationsArray();
       this.setState({ disableButtons: false });
-    }, 100 * ANIMATION_SPEED * animationsArray.length);
+    }, ANIMATION_SPEED * animationsArray.length);
   }
-
+  selection() {
+    console.log("sorted:" + selectionSort(this.state.arr));
+    const animations = selectionAnimations;
+    console.log(selectionAnimations);
+    for (let i = 0; i < animations.length; i++) {
+      console.log(animations[i]);
+    }
+    for (let i = 0; i < animations.length; i++) {
+      const bars = document.getElementsByClassName("bar");
+      const [barIndex, newHeight] = animations[i];
+      const barStyle = bars[barIndex].style;
+      setTimeout(() => {
+        barStyle.height = `${newHeight}px`;
+      }, (i * ANIMATION_SPEED) / 100);
+    }
+    setTimeout(() => {
+      clearSelectionAnimationsArray();
+      this.setState({ disableButtons: false });
+    }, (animations.length * ANIMATION_SPEED) / 100);
+  }
   //------------------------------------render ------------------------------------
   render() {
     const { arr } = this.state;
@@ -154,7 +162,7 @@ class SortingAlgos extends Component {
               }}
               className="algoListButtons"
             >
-              Bubblesort
+              Bubblesort (x500)
             </button>
           </li>
           <li className="algoListItem">
@@ -168,13 +176,14 @@ class SortingAlgos extends Component {
               }}
               className="algoListButtons"
             >
-              Quicksort
+              Quicksort(x5)
             </button>
           </li>
           <li className="algoListItem">
             <button
               disabled={this.state.disableButtons}
               onClick={() => {
+                this.selection();
                 this.setState({
                   showBubble: false,
                   showQuick: false,
@@ -186,7 +195,7 @@ class SortingAlgos extends Component {
               }}
               className="algoListButtons"
             >
-              Heapsort
+              Selectionsort (x500)
             </button>
           </li>
           <li className="algoListItem">

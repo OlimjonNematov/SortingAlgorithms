@@ -40,7 +40,6 @@ function swap(array, leftIndex, rightIndex) {
   array[leftIndex] = array[rightIndex];
   array[rightIndex] = temp;
 }
-
 export function clearQuickAnimationsArray() {
   quickAnimations.length = 0;
 }
