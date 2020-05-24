@@ -5,7 +5,12 @@ class OtherProjects extends Component {
     return (
       <div className="mainContent">
         <div className="listProjects">
-          <ul>coming soon</ul>
+          <p>
+            Coming soon!
+            <br />
+            For now, check out my{" "}
+            <a href="https://github.com/OlimjonNematov">github</a>
+          </p>
         </div>
       </div>
     );
