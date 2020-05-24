@@ -128,7 +128,6 @@ class SortingAlgos extends Component {
   }
   selection() {
     const copyOfArr = this.state.arr.slice();
-    // const copyOfArr = [1, 9, 2, 3, 8, 4, 7];
     let sortedArray = selectionSort(copyOfArr);
     const animations = selectionAnimations;
     for (let i = 0; i < animations.length; i++) {
@@ -148,9 +147,24 @@ class SortingAlgos extends Component {
     }, (animations.length * ANIMATION_SPEED) / 100);
   }
   insertion() {
-    let copyOfArr = this.state.arr.slice();
-    // console.log(copyOfArr);
+    const copyOfArr = this.state.arr.slice();
     let sortedArray = insertionSort(copyOfArr);
+    const animations = insertionAnimations;
+    for (let i = 0; i < animations.length; i++) {
+      const bars = document.getElementsByClassName("bar");
+      const [barIndex, newHeight] = animations[i];
+      const barStyle = bars[barIndex].style;
+      setTimeout(() => {
+        barStyle.height = `${newHeight}px`;
+      }, (i * ANIMATION_SPEED) / 10);
+    }
+    setTimeout(() => {
+      clearInsertionAnimations();
+      this.setState({
+        arr: sortedArray,
+        disableButtons: false,
+      });
+    }, (ANIMATION_SPEED * animations.length) / 10);
   }
 
   //------------------------------------render ------------------------------------
@@ -241,7 +255,7 @@ class SortingAlgos extends Component {
               }}
               className="algoListButtons"
             >
-              Insertionsort
+              Insertionsort (x50)
             </button>
           </li>
         </ul>

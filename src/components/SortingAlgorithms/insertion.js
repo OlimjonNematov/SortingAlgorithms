@@ -12,11 +12,12 @@ export function insertionSort(a) {
         currentElement <= originalArray[j] &&
         currentElement <= originalArray[j + 1]
       ) {
+        insertionAnimations.push([[i], [originalArray[j]]]);
+        insertionAnimations.push([[j], [originalArray[i]]]);
         swap(originalArray, i, j);
       }
     }
   }
-  console.log(originalArray);
   return originalArray;
 }
 function swap(arr, index1, index2) {
